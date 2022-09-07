@@ -4,6 +4,7 @@ import (
 	"tutorials/configs"
 	"tutorials/routes"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,5 +14,6 @@ func main() {
 	configs.ConnectDB()
 	routes.StateRoute(router)
 
-	router.RunTLS("localhost:6000", "./ssl/cert.pem", "./ssl/key.unencrypted.pem")
+	router.Use(cors.Default())
+	router.RunTLS(":443", "./ssl/cert.pem", "./ssl/key.unencrypted.pem")
 }
